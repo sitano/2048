@@ -1,24 +1,12 @@
 /* eslint-disable no-underscore-dangle */
+
 export default class LocalStorageManager {
-  constructor(db) {
-    this.bestScoreKey = `${db}_best_score`;
-    this.gameStateKey = `${db}_game_state`;
+  constructor() {
+    this.bestScoreKey     = "best_score";
+    this.gameStateKey     = "game_state";
 
     const supported = LocalStorageManager.localStorageSupported();
     this.storage = supported ? window.localStorage : window.fakeStorage;
-  }
-
-  static localStorageSupported() {
-    const testKey = "test";
-
-    try {
-      const storage = window.localStorage;
-      storage.setItem(testKey, "1");
-      storage.removeItem(testKey);
-      return true;
-    } catch (error) {
-      return false;
-    }
   }
 
   // Best score getters/setters
@@ -42,6 +30,19 @@ export default class LocalStorageManager {
 
   clearGameState() {
     this.storage.removeItem(this.gameStateKey);
+  }
+
+  static localStorageSupported() {
+    const testKey = "test";
+
+    try {
+      const storage = window.localStorage;
+      storage.setItem(testKey, "1");
+      storage.removeItem(testKey);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
 
